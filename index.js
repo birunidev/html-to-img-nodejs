@@ -3,8 +3,6 @@ const nodeHtmlToImage = require("node-html-to-image");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const axios = require("axios");
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
