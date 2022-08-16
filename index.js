@@ -24,14 +24,22 @@ body: {
 
 */
 app.post("/html2img", async (req, res) => {
-  const image = await nodeHtmlToImage({
-    html: req.body.html_code,
-    content: req.body.content || {},
-    puppeteerArgs: { args: ["--no-sandbox"] },
-  });
-  const finalImage = `${dataImagePrefix}${image.toString("base64")}`;
+  try {
+    const image = await nodeHtmlToImage({
+      html: req.body.html_code,
+      content: req.body.content || {},
+      puppeteerArgs: { args: ["--no-sandbox"] },
+    });
+    const finalImage = `${dataImagePrefix}${image.toString("base64")}`;
 
-  res.json({ result: finalImage });
+    res.json({ result: finalImage });
+  } catch (error) {
+    res.json({
+      result: null,
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 app.listen(PORT, (err) => {
