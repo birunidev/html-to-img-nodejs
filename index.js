@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 4400;
 
 const dataImagePrefix = `data:image/png;base64,`;
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   return res.json({ status: "oke" });
 });
 app.post("/html2img", async (req, res) => {
