@@ -10,20 +10,21 @@ const PORT = process.env.PORT || 4400;
 
 const dataImagePrefix = `data:image/png;base64,`;
 
-/*
-
-method: POST
-route: /img2html
-body: {
-    "certificate_bg": "url",
-    "certificate_values": {
-        "name": "Muhammad Al Biruni",
-        "status": "Peserta"
-    }
-}
-
-*/
 app.post("/html2img", async (req, res) => {
+  if (!req.body.html_code) {
+    return res.json({
+      status: "error",
+      message: "html_code is required",
+    });
+  }
+
+  if (!req.body.content) {
+    return res.json({
+      status: "error",
+      message: "content is required",
+    });
+  }
+
   try {
     const image = await nodeHtmlToImage({
       html: req.body.html_code,
